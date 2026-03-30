@@ -4,10 +4,10 @@ import { motion } from 'framer-motion';
 import { User, ShieldCheck, Briefcase, MapPin, Lock, LogIn } from 'lucide-react';
 
 const roles = [
-  { id: 'student', label: 'Student', icon: User, color: '#00f2fe' },
-  { id: 'faculty', label: 'Faculty', icon: Briefcase, color: '#4facfe' },
-  { id: 'admin', label: 'Admin', icon: ShieldCheck, color: '#00ff88' },
-  { id: 'visitor', label: 'Visitor', icon: MapPin, color: '#a0a0ba' },
+  { id: 'student', label: 'Student', icon: User },
+  { id: 'faculty', label: 'Faculty', icon: Briefcase },
+  { id: 'admin', label: 'Admin', icon: ShieldCheck },
+  { id: 'visitor', label: 'Visitor', icon: MapPin },
 ];
 
 const Login = ({ setUser }) => {
@@ -18,47 +18,60 @@ const Login = ({ setUser }) => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Simulation: accept any login
     setUser({ email, role: selectedRole });
     navigate('/dashboard');
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="page-center-layout">
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="glass-card w-full max-w-md p-8 overflow-hidden relative"
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="login-card"
       >
-        <div className="absolute top-0 right-0 p-4 opacity-10">
-          <LogIn size={120} />
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1rem' }}>
+          <div className="flex-center" style={{ width: '4rem', height: '4rem', background: 'var(--bg-light)', borderRadius: '1rem', color: 'var(--primary)' }}>
+            <LogIn size={32} />
+          </div>
         </div>
 
-        <h2 className="text-3xl mb-8 font-display">Welcome Back</h2>
+        <div>
+          <h2 style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>Welcome Back</h2>
+          <p style={{ color: 'var(--text-muted)' }}>Access your IntelliCampus account</p>
+        </div>
         
-        <div className="mb-8">
-          <p className="text-sm text-muted mb-4 uppercase tracking-wider">Select Your Role</p>
-          <div className="grid grid-cols-2 gap-4">
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <p style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Choose Your Role</p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.75rem' }}>
             {roles.map((role) => (
               <button
                 key={role.id}
                 onClick={() => setSelectedRole(role.id)}
-                className={`flex items-center gap-3 p-4 rounded-xl transition-all duration-300 ${
-                  selectedRole === role.id 
-                  ? 'bg-primary/20 border-primary text-primary' 
-                  : 'bg-glass border-transparent hover:bg-glass/50 text-muted'
-                } border`}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  padding: '1rem',
+                  borderRadius: '1rem',
+                  border: '2px solid',
+                  borderColor: selectedRole === role.id ? 'var(--primary)' : 'var(--border)',
+                  background: selectedRole === role.id ? 'rgba(37, 99, 235, 0.05)' : 'white',
+                  color: selectedRole === role.id ? 'var(--primary)' : 'var(--text-muted)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s'
+                }}
               >
-                <role.icon size={20} />
-                <span className="font-medium">{role.label}</span>
+                <role.icon size={18} />
+                <span style={{ fontWeight: 600 }}>{role.label}</span>
               </button>
             ))}
           </div>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div className="space-y-2">
-            <label className="text-sm text-muted ml-1">Email or ID</label>
+        <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+          <div style={{ textAlign: 'left' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.5rem', display: 'block' }}>Email or ID</label>
             <input 
               type="text" 
               className="input-field" 
@@ -68,32 +81,29 @@ const Login = ({ setUser }) => {
               required
             />
           </div>
-          <div className="space-y-2">
-            <label className="text-sm text-muted ml-1">Password</label>
-            <div className="relative">
-              <input 
-                type="password" 
-                className="input-field pr-10" 
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-              <Lock size={18} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted" />
-            </div>
+          <div style={{ textAlign: 'left' }}>
+            <label style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--text-main)', marginBottom: '0.5rem', display: 'block' }}>Password</label>
+            <input 
+              type="password" 
+              className="input-field" 
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
 
-          <button type="submit" className="button-primary w-full justify-center py-4 mt-4">
-            Sign In
+          <button type="submit" className="button-full">
+            Sign In <ShieldCheck size={20} />
           </button>
         </form>
 
-        <p className="text-center text-muted text-sm mt-8">
-          Forgot password? <a href="#" className="text-primary hover:underline">Contact Support</a>
+        <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)' }}>
+          Difficulty signing in? <a href="#" style={{ color: 'var(--primary)', fontWeight: 600 }}>Contact Support</a>
         </p>
       </motion.div>
     </div>
   );
 };
 
-export default Login;
+export default Dashboard;

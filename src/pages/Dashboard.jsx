@@ -15,96 +15,98 @@ import {
 
 const Dashboard = ({ user }) => {
   const navigate = useNavigate();
-
   const userName = user?.email?.split('@')[0] || 'John';
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6] font-sans">
+    <div className="full-screen">
       {/* Header */}
-      <header className="bg-[#1e40af] text-white px-8 py-4 flex items-center justify-between shadow-md">
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center backdrop-blur-sm">
+      <header className="main-header">
+        <div className="header-logo">
+          <div className="flex-center" style={{ background: 'rgba(255,255,255,0.2)', padding: '0.5rem', borderRadius: '0.75rem' }}>
             <GraduationCap size={24} color="#fff" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight">IntelliCampus</h1>
+          <span>IntelliCampus</span>
         </div>
         
-        <div className="flex items-center gap-4">
-          <span className="text-sm font-medium hidden sm:inline">Welcome, {userName}!</span>
-          <div className="w-10 h-10 rounded-full border-2 border-white/30 overflow-hidden cursor-pointer hover:border-white transition-colors">
+        <div className="header-profile">
+          <span style={{ fontWeight: 500 }} className="hidden-mobile">Welcome, {userName}!</span>
+          <div className="avatar-circle">
             <img 
               src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${userName}`} 
               alt="Profile" 
-              className="w-full h-full object-cover bg-white"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
-          <ChevronRight size={16} className="rotate-90 hidden sm:block opacity-70" />
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-8 space-y-8">
+      <main className="dashboard-container">
         
-        {/* Hero Banner */}
+        {/* Hero Banner Section */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="relative bg-white rounded-[32px] overflow-hidden shadow-sm border border-gray-100 flex flex-col md:flex-row items-center p-8 md:p-0 min-h-[300px]"
+          className="hero-section"
         >
-          <div className="md:w-1/2 p-8 md:p-12 z-10">
-            <h2 className="text-[#1e3a8a] text-4xl font-bold mb-4">Welcome to IntelliCampus</h2>
-            <p className="text-gray-500 text-xl">Your Smart Campus Assistant</p>
+          <div className="text-center">
+            <h1 className="hero-title">Welcome to IntelliCampus</h1>
+            <p className="hero-subtitle">Your Smart Campus Assistant</p>
           </div>
-          <div className="md:w-1/2 h-full min-h-[250px] relative">
+          
+          <div className="hero-image-container">
             <img 
               src="/campus-hero.png" 
               alt="Campus Illustration" 
-              className="absolute inset-0 w-full h-full object-cover object-center md:object-right"
+              className="hero-image"
               onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1541339907198-e08756ebafe3?auto=format&fit=crop&q=80&w=1000' }}
             />
           </div>
         </motion.div>
 
-        {/* Action Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Action Button Grid */}
+        <div className="action-grid">
           <ActionButton 
             title="Navigate Campus" 
             icon={<Map size={32} />} 
-            color="bg-gradient-to-r from-blue-500 to-blue-700" 
+            background="linear-gradient(to right, #3b82f6, #1d4ed8)" 
             onClick={() => navigate('/navigation')}
           />
           <ActionButton 
             title="QR Attendance" 
             icon={<QrCode size={32} />} 
-            color="bg-gradient-to-r from-orange-400 to-red-500" 
+            background="linear-gradient(to right, #f97316, #ef4444)" 
             onClick={() => navigate('/attendance')}
           />
           <ActionButton 
             title="Report Issue" 
             icon={<AlertCircle size={32} />} 
-            color="bg-gradient-to-r from-emerald-500 to-teal-700" 
+            background="linear-gradient(to right, #10b981, #0f766e)" 
             onClick={() => navigate('/communication')}
           />
         </div>
 
-        {/* Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pb-12">
+        {/* Informational Grid */}
+        <div className="info-grid">
           <InfoCard 
             title="Upcoming Events" 
-            icon={<Calendar className="text-blue-600" />}
-            items={[
-              { title: "Orientation Session", time: "Today, 10:00 AM" }
-            ]}
+            icon={<Calendar style={{ color: '#2563eb' }} />}
+            content={
+              <div className="text-center">
+                <p style={{ fontSize: '1.25rem', fontWeight: 700 }}>Orientation Session</p>
+                <p style={{ color: 'var(--text-muted)' }}>Today, 10:00 AM</p>
+              </div>
+            }
             footerText="View More"
           />
           <InfoCard 
             title="Attendance Stats" 
-            icon={<BarChart3 className="text-blue-600" />}
-            centerContent={
-              <div className="text-center py-2">
-                <p className="text-xs text-gray-400 mb-1">Today's Attendance</p>
-                <div className="flex items-center justify-center gap-1">
-                  <span className="text-3xl font-bold text-emerald-500">85%</span>
-                  <span className="text-sm text-gray-500 font-medium">Present</span>
+            icon={<BarChart3 style={{ color: '#2563eb' }} />}
+            content={
+              <div className="text-center">
+                <p style={{ fontSize: '0.875rem', color: 'var(--text-muted)', marginBottom: '0.25rem' }}>Today's Attendance</p>
+                <div className="flex-center" style={{ gap: '0.5rem' }}>
+                  <span style={{ fontSize: '2.5rem', fontWeight: 800, color: '#10b981' }}>85%</span>
+                  <span style={{ fontWeight: 600, color: 'var(--text-muted)' }}>Present</span>
                 </div>
               </div>
             }
@@ -112,62 +114,59 @@ const Dashboard = ({ user }) => {
           />
           <InfoCard 
             title="Campus Notices" 
-            icon={<Megaphone className="text-blue-600" />}
-            items={[
-              { title: "Library Hours Updated", time: "New timings posted" }
-            ]}
+            icon={<Megaphone style={{ color: '#2563eb' }} />}
+            content={
+              <div className="text-center">
+                <p style={{ fontSize: '1.25rem', fontWeight: 700 }}>Library Hours Updated</p>
+                <p style={{ color: 'var(--text-muted)' }}>New timings posted</p>
+              </div>
+            }
             footerText="Read More"
           />
         </div>
-      </main>
 
-      {/* Footer */}
-      <footer className="py-8 flex flex-col items-center justify-center opacity-50">
-        <div className="flex items-center gap-4 w-full max-w-md px-6">
-          <div className="h-[1px] bg-gray-400 flex-grow"></div>
-          <span className="text-sm font-medium whitespace-nowrap italic text-gray-600">Making Campus Life Smarter</span>
-          <div className="h-[1px] bg-gray-400 flex-grow"></div>
-        </div>
-      </footer>
+        {/* Styled Footer */}
+        <footer className="main-footer">
+          <div className="footer-line"></div>
+          <span className="footer-text">Making Campus Life Smarter</span>
+          <div className="footer-line"></div>
+        </footer>
+      </main>
     </div>
   );
 };
 
-const ActionButton = ({ title, icon, color, onClick }) => (
+const ActionButton = ({ title, icon, background, onClick }) => (
   <motion.button
-    whileHover={{ y: -5 }}
+    whileHover={{ scale: 1.02 }}
     whileTap={{ scale: 0.98 }}
     onClick={onClick}
-    className={`${color} text-white p-8 rounded-3xl flex items-center justify-center gap-4 shadow-lg hover:shadow-xl transition-all w-full text-left`}
+    className="action-button"
+    style={{ background }}
   >
-    <div className="p-3 bg-white/20 rounded-2xl backdrop-blur-sm">
+    <div className="action-icon-box">
       {icon}
     </div>
-    <span className="text-xl font-bold">{title}</span>
+    <span>{title}</span>
   </motion.button>
 );
 
-const InfoCard = ({ title, icon, items, centerContent, footerText }) => (
-  <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100 flex flex-col min-h-[220px]">
-    <div className="flex items-center gap-3 mb-6 pb-3 border-b border-gray-50">
+const InfoCard = ({ title, icon, content, footerText }) => (
+  <div className="info-card">
+    <div className="info-card-header">
       {icon}
-      <h4 className="font-bold text-gray-700">{title}</h4>
+      <h4 style={{ color: '#374151' }}>{title}</h4>
     </div>
     
-    <div className="flex-grow">
-      {centerContent}
-      {items?.map((item, idx) => (
-        <div key={idx} className="flex flex-col gap-1">
-          <p className="text-sm font-semibold text-gray-800">{item.title}</p>
-          <p className="text-xs text-gray-400">{item.time}</p>
-        </div>
-      ))}
+    <div className="info-card-content">
+      {content}
     </div>
 
-    <button className="flex items-center gap-1 text-xs font-bold text-blue-600 hover:gap-2 transition-all mt-4">
+    <button className="info-card-footer">
       {footerText} <ChevronRight size={14} />
     </button>
   </div>
 );
 
 export default Dashboard;
+
