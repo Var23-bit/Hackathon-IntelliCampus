@@ -106,4 +106,5 @@ const Login = ({ setUser }) => {
   );
 };
 
-export default Dashboard;
+export default Login;
+

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Splash from './pages/Splash';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
@@ -13,7 +13,7 @@ function App() {
   const [user, setUser] = useState(null);
 
   return (
-    <Router basename="/Hackathon-IntelliCampus/">
+    <Router>
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
