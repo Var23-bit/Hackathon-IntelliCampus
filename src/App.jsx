@@ -13,7 +13,7 @@ function App() {
   const [user, setUser] = useState(null);
 
   return (
-    <Router>
+    <Router basename="/Hackathon-IntelliCampus/">
       <Routes>
         <Route path="/" element={<Splash />} />
         <Route path="/login" element={<Login setUser={setUser} />} />
