@@ -33,9 +33,7 @@ const Splash = () => {
         Get Started <ArrowRight size={20} />
       </motion.button>
 
-      <div className="absolute bottom-10 text-muted/50 text-sm">
-        Built for Hackathon MVP 2026
-      </div>
+
     </div>
   );
 };

@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap');
 
 :root {
-  --primary: #00f2fe;
-  --secondary: #4facfe;
-  --accent: #00ff88;
-  --bg-dark: #0a0b10;
-  --bg-card: rgba(255, 255, 255, 0.05);
-  --text-main: #ffffff;
-  --text-muted: #a0a0ba;
-  --border: rgba(255, 255, 255, 0.1);
-  --glass: rgba(255, 255, 255, 0.03);
-  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --primary: #2563eb;
+  --secondary: #3b82f6;
+  --accent: #10b981;
+  --bg-light: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  --header-bg: #1e40af;
+  --header-text: #ffffff;
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 * {
@@ -21,7 +22,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: var(--bg-dark);
+  background-color: var(--bg-light);
   color: var(--text-main);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -34,22 +35,26 @@ h1, h2, h3, .font-display {
 
 .glass-card {
   background: var(--bg-card);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border);
-  border-radius: 24px;
+  border-radius: 20px;
   box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .button-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-  color: #000;
+  background: var(--primary);
+  color: #fff;
   border: none;
-  padding: 14px 28px;
-  border-radius: 14px;
+  padding: 12px 24px;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -58,17 +63,16 @@ h1, h2, h3, .font-display {
 }
 
 .button-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
-  filter: brightness(1.1);
+  background: var(--secondary);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
 .button-outline {
   background: transparent;
   border: 1px solid var(--border);
   color: var(--text-main);
-  padding: 14px 28px;
-  border-radius: 14px;
+  padding: 12px 24px;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -79,16 +83,16 @@ h1, h2, h3, .font-display {
 }
 
 .button-outline:hover {
-  background: var(--glass);
+  background: #f1f5f9;
   border-color: var(--primary);
 }
 
 .input-field {
-  background: var(--glass);
+  background: #fff;
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 12px 16px;
-  color: #fff;
+  color: var(--text-main);
   font-size: 16px;
   width: 100%;
   transition: all 0.3s ease;
@@ -97,7 +101,7 @@ h1, h2, h3, .font-display {
 .input-field:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 2px rgba(0, 242, 254, 0.2);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
 
 .container {
@@ -107,11 +111,12 @@ h1, h2, h3, .font-display {
 }
 
 .neon-text {
-  text-shadow: 0 0 10px rgba(0, 242, 254, 0.5);
+  color: var(--primary);
 }
 
 .gradient-text {
   background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
